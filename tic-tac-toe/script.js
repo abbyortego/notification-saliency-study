@@ -19,6 +19,8 @@ const winningConditions = [
 ];
 
 function handleCellClick(e) {
+    showToast("you clicked!")
+
     const clickedCell = e.target;
     const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
 
@@ -98,3 +100,21 @@ function restartGame() {
         cell.classList.remove('x', 'o');
     });
 } // restartGame
+
+
+// toast!
+
+function showToast(message) {
+    const container = document.getElementById('toast-container');
+
+    const toast = document.createElement('div');
+    toast.classList.add('toast');
+
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+} // showToast
