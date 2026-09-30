@@ -1,4 +1,3 @@
-
 // ui elements
 const boardElement = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
@@ -23,13 +22,13 @@ function handleCellClick(e) {
     const clickedCell = e.target;
     const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
 
-    // Check if cell is occupied or game is over
+    // check if cell is occupied or game is over
     if (boardState[clickedCellIndex] !== "" || !isGameActive) {
         return;
     }
 
-    updateCell(clickedCell, clickedCellIndex);
-    checkForWinner();
+    updateCell(clickedCell, clickedCellIndex);  // add user selection to grid
+    checkForWinner();   // check for winner
 } // handleCellClick
 
 function updateCell(cell, index) {
@@ -43,7 +42,22 @@ function updateCell(cell, index) {
 function changePlayer() {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     statusText.textContent = `Player ${currentPlayer}'s turn`;
+
+    if (currentPlayer === "O"){
+        opponentSelection();
+        checkForWinner();
+    }
 } // changePlayer
+
+function opponentSelection(){
+    const emptyIndices = boardState     // get a list of empty cells idx
+        .map((item, index) => item === '' ? index : -1)
+        .filter(index => index !== -1);
+
+    const randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];      // select one
+
+    updateCell(cells[randomIndex], randomIndex);
+} // randomSelection
 
 function checkForWinner() {
     let roundWon = false;   // does the round get won?
