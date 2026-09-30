@@ -1,15 +1,9 @@
-// ui elements
-const boardElement = document.getElementById('board');
-const cells = document.querySelectorAll('.cell');
-const statusText = document.getElementById('status');
-const restartBtn = document.getElementById('restart-btn');
-const toast = document.getElementById("toast");
-
-// listeners
-boardElement.addEventListener('click', handleCellClick);
-restartBtn.addEventListener('click', restartGame);
-
+// STATE
 // experimental conditions
+const durations = {
+    short: 5000,
+    long: 10000
+};
 const conditions = [
     { prominence: "low",  animation: "slide", duration: "short" },
     { prominence: "low",  animation: "slide", duration: "long" },
@@ -25,6 +19,7 @@ const conditions = [
     { prominence: "high", animation: "pop",   duration: "short" },
     { prominence: "high", animation: "pop",   duration: "long" }
 ];
+const trials = [...conditions].sort(() => Math.random() - 0.5);
 
 // starting state and win condition
 let boardState = ["", "", "", "", "", "", "", "", ""];
@@ -36,9 +31,28 @@ const winningConditions = [
     [0, 4, 8], [2, 4, 6]             // Diagonals
 ];
 
-function handleCellClick(e) {
-    setToastStyle("stun")
+let currentTrial = null;
+let toastTimeout = null;
 
+
+
+// DOM
+const boardElement = document.getElementById('board');
+const cells = document.querySelectorAll('.cell');
+const statusText = document.getElementById('status');
+const restartBtn = document.getElementById('restart-btn');
+const toast = document.getElementById("toast");
+const dismissButton = document.getElementById("dismissButton");
+const openButton = document.getElementById("openButton");
+
+boardElement.addEventListener('click', handleCellClick);
+restartBtn.addEventListener('click', restartGame);
+dismissButton.addEventListener("click", finishToast("dismiss"));
+openButton.addEventListener("click", finishToast("open"));
+
+
+// FUNCTIONS
+function handleCellClick(e) {
     const clickedCell = e.target;
     const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
 
@@ -121,7 +135,96 @@ function restartGame() {
 
 
 // toast!
-function setToastStyle(style) {
-    toast.classList.remove("blend", "stun");
-    toast.classList.add(style);
+function showToast({
+    prominence = "low",
+    animation = "fade",
+    duration = "short",
+    title = "Messages",
+    message = "Alex sent you a message."
+}) {
+    clearTimeout(toastTimeout);
+
+    // Reset classes
+    toast.className = "toast";
+
+    // Apply experimental condition
+    toast.classList.add(prominence);
+    toast.classList.add(animation);
+
+    // Set content
+    toast.querySelector(".toast-title").textContent = title;
+    toast.querySelector(".toast-body").textContent = message;
+
+    // Make visible
+    toast.style.display = "block";
+
+    // Remove after specified duration
+    toastTimeout = setTimeout(() => {
+        toast.classList.add("hide");
+
+        setTimeout(() => {
+            toast.style.display = "none";
+            toast.classList.remove("hide");
+        }, 200);
+
+    }, durations[duration]);
+
+    currentTrial = {
+        prominence,
+        animation,
+        duration,
+        shownAt: Date.now(),
+        response: null,
+        responseAt: null,
+        responseTime: null
+    };
+    console.log(currentTrial);
 }
+
+
+// trials!
+function runTrial(index, delayMin, delayMax) {
+    if (index >= trials.length) {
+        console.log("Experiment complete");
+        return;
+    }
+
+    const condition = trials[index];
+    showToast({
+        ...condition,
+        title: "Messages",
+        message: "Alex sent you a message."
+    });
+
+    // Random delay before next notification
+    const nextDelay = Math.floor(
+        Math.random() * (delayMax - delayMin + 1)
+    ) + delayMin;
+
+    setTimeout(() => {
+        runTrial(index + 1, delayMin, delayMax);
+    }, durations[condition.duration] + nextDelay);
+}
+
+function finishToast(response) {
+    if (!currentTrial) return;
+
+    // Stop the timeout
+    clearTimeout(toastTimeout);
+
+    // Record response
+    currentTrial.response = response;
+    currentTrial.responseAt = Date.now();
+
+    // Calculate response time
+    currentTrial.responseTime = currentTrial.responseAt - currentTrial.shownAt;
+    console.log(currentTrial);
+
+    // Hide toast
+    toast.style.display = "none";
+
+    // Clear current trial
+    currentTrial = null;
+} // finish toast
+
+runTrial(0, 5000, 10000);

@@ -75,66 +75,59 @@ button:hover {
     top: 20px;
     right: 20px;
 
-    width: min(90vw, 380px);
-    padding: 14px 18px;
+    width: min(90vw, 360px);
+    padding: 14px 16px;
 
-    border-radius: 14px;
+    border-radius: 12px;
     z-index: 1000;
 
     font-family: Arial, sans-serif;
-
-    /* Toast animation */
-    animation: fade 0.60s ease-out;
+    
+    box-sizing: border-box;     /* Prevent text from making the toast huge */
 }
 
-/* BLEND: Low visual prominence */
-.toast.blend {
+/* Low Prominence */
+.toast.low {
     background: #f4f4f4;
     color: #555;
-
     border: 1px solid #ddd;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
-    font-size: 14px;
-    font-weight: 400;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.toast.blend .toast-title {
+.toast.low .toast-title {
     font-size: 13px;
     font-weight: 400;
     margin-bottom: 3px;
 }
 
-.toast.blend .toast-body {
+.toast.low .toast-body {
     font-size: 13px;
     font-weight: 300;
 }
 
-/* STUN: High visual prominence */
-.toast.stun {
+/* High Prominence */
+.toast.high {
     background: #ffeb3b;
     color: #111;
-
     border: 3px solid #111;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 
-    font-size: 16px;
-    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-.toast.stun .toast-title {
+.toast.high .toast-title {
     font-size: 17px;
     font-weight: 800;
     margin-bottom: 4px;
 }
 
-.toast.stun .toast-body {
+.toast.high .toast-body {
     font-size: 16px;
     font-weight: 600;
 }
 
 
-/* Animation */
+/* Animations */
 @keyframes slide {
     from {
         opacity: 0;
@@ -147,7 +140,6 @@ button:hover {
     }
 }
 
-/* Fade */
 @keyframes fade {
     from {
         opacity: 0;
@@ -157,7 +149,6 @@ button:hover {
     }
 }
 
-/* Pulse */
 @keyframes pulse {
     0% {
         opacity: 0;
@@ -170,4 +161,55 @@ button:hover {
     100% {
         transform: scale(1);
     }
+}
+
+@keyframes toast-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.toast.slide {
+    animation: slide 0.60s ease-out;
+}
+.toast.fade {
+    animation: fade 0.60s ease-out;
+}
+.toast.pop {
+    animation: pop 0.60s ease-out;
+}
+.toast.hide {
+    animation: toast-out 0.30s ease-in forwards;
+}
+
+.toast-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.toast-button {
+    border: none;
+    border-radius: 7px;
+    padding: 7px 12px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.toast-button.dismiss {
+    background: transparent;
+    color: inherit;
+}
+
+.toast-button.open {
+    background: #111;
+    color: white;
 }
