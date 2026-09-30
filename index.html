@@ -7,36 +7,149 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Tic-Tac-Toe</h1>
-        <div id="status">Player X's turn</div>
+    <div id="consent-page" class="consent-page">
+        <div class="consent-card">
+            <h1>Tic-Tac-Toe Study</h1>
 
-        <div id="board" class="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
-        </div>
-        <button id="restart-btn">Restart Game</button>
-    </div>
-    <div id="toast" class="toast blend">
-        <div class="toast-title">Messages</div>
-        <div class="toast-body">Alex sent you a message.</div>
+            <h2>Welcome!</h2>
 
-        <div class="toast-actions">
-            <button id="dismissButton" class="toast-button dismiss">
-                Dismiss
-            </button>
-            <button id="openButton" class="toast-button open">
-                Open
+            <p>
+                You are invited to participate in a short study about
+                how people notice and interact with notifications while
+                completing a task.
+            </p>
+
+            <p>
+                During the study, you will play Tic-Tac-Toe while
+                notifications appear on the screen. When a notification
+                appears, interact with it as you normally would.
+            </p>
+
+            <h2>What to Expect</h2>
+
+            <ul>
+                <li>The study takes approximately 5–10 minutes.</li>
+                <li>You will play several rounds of Tic-Tac-Toe.</li>
+                <li>Notifications will appear while you play.</li>
+                <li>Your interactions with the notifications will be recorded.</li>
+            </ul>
+
+            <div class="study-info">
+                <div class="info-row">
+                    <label for="study-id">Study ID</label>
+                    <input
+                        type="text"
+                        id="study-id"
+                        placeholder="Enter study ID"
+                    >
+                </div>
+
+                <div class="info-row">
+                    <label>Participant ID</label>
+                    <div id="participant-id" class="id-display"></div>
+                </div>
+            </div>
+
+            <div class="consent-box">
+                <label>
+                    <input type="checkbox" id="consent-checkbox">
+                    I have read the information above and voluntarily
+                    agree to participate in this study.
+                </label>
+            </div>
+
+            <button id="start-btn" disabled>
+                Start Study
             </button>
         </div>
     </div>
+
+    <div id="game-page" style="display: none;">
+        <div class="game-container">
+            <h1>Tic-Tac-Toe</h1>
+            <div id="status">Player X's turn</div>
+
+            <div id="board" class="board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+            <button id="restart-btn">Restart Game</button>
+        </div>
+        <div id="toast" class="toast blend">
+            <div class="toast-title">Messages</div>
+            <div class="toast-body">Alex sent you a message.</div>
+
+            <div class="toast-actions">
+                <button id="dismissButton" class="toast-button dismiss">
+                    Dismiss
+                </button>
+                <button id="openButton" class="toast-button open">
+                    Open
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="debrief-page" style="display: none;">
+        <div class="consent-card">
+            <h1>Study Complete</h1>
+
+            <h2>Thank you for participating!</h2>
+
+            <p>
+                This study investigated what makes smartphone notifications
+                noticeable while people are engaged in another task.
+            </p>
+
+            <p>
+                During the study, notifications varied in three ways:
+            </p>
+
+            <ul>
+                <li><strong>Visual prominence</strong> — how visually noticeable the notification was.</li>
+                <li><strong>Animation</strong> — how the notification appeared on screen.</li>
+                <li><strong>Duration</strong> — how long the notification remained visible.</li>
+            </ul>
+
+            <p>
+                We recorded how you interacted with each notification,
+                including whether you dismissed or opened it and how quickly
+                you responded.
+            </p>
+
+            <p>
+                The purpose of collecting these responses is to better
+                understand how notification design influences noticeability
+                during everyday activities.
+            </p>
+
+            <p>
+                Your responses will be analyzed together with those of other
+                participants. Your participant ID was randomly generated and
+                was used to associate your responses across the study.
+            </p>
+
+            <h2>Questions or Concerns</h2>
+
+            <p>
+                If you have questions about this study, please contact the
+                research team using the contact information provided by the
+                study organizers.
+            </p>
+
+            <p>
+                Thank you for your time!
+            </p>
+        </div>
+    </div>
+    
     <script src="script.js" defer></script>
 </body>
 </html>
