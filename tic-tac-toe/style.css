@@ -213,3 +213,18 @@ button:hover {
     background: #111;
     color: white;
 }
+
+.toast.expanded {
+    width: min(90vw, 500px);
+    padding: 24px;
+}
+
+.toast.expanded .toast-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.toast.expanded .toast-body {
+    font-size: 16px;
+    line-height: 1.5;
+}

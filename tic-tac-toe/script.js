@@ -32,7 +32,11 @@ const winningConditions = [
 ];
 
 let currentTrial = null;
+let currentTrialIndex = null;
+let currentDelayMin = null;
+let currentDelayMax = null;
 let toastTimeout = null;
+let nextTrialTimeout = null;
 
 
 
@@ -47,8 +51,12 @@ const openButton = document.getElementById("openButton");
 
 boardElement.addEventListener('click', handleCellClick);
 restartBtn.addEventListener('click', restartGame);
-dismissButton.addEventListener("click", finishToast("dismiss"));
-openButton.addEventListener("click", finishToast("open"));
+dismissButton.addEventListener('click', () => {
+    finishToast("dismiss");
+});
+openButton.addEventListener('click', () => {
+    finishToast("open");
+});
 
 
 // FUNCTIONS
@@ -144,30 +152,14 @@ function showToast({
 }) {
     clearTimeout(toastTimeout);
 
-    // Reset classes
     toast.className = "toast";
-
-    // Apply experimental condition
     toast.classList.add(prominence);
     toast.classList.add(animation);
 
-    // Set content
     toast.querySelector(".toast-title").textContent = title;
     toast.querySelector(".toast-body").textContent = message;
 
-    // Make visible
     toast.style.display = "block";
-
-    // Remove after specified duration
-    toastTimeout = setTimeout(() => {
-        toast.classList.add("hide");
-
-        setTimeout(() => {
-            toast.style.display = "none";
-            toast.classList.remove("hide");
-        }, 200);
-
-    }, durations[duration]);
 
     currentTrial = {
         prominence,
@@ -178,38 +170,38 @@ function showToast({
         responseAt: null,
         responseTime: null
     };
-    console.log(currentTrial);
-}
 
+    // Automatically finish if the notification times out
+    toastTimeout = setTimeout(() => {
+        finishToast("timeout");
+    }, durations[duration]);
+} // showToast
 
-// trials!
 function runTrial(index, delayMin, delayMax) {
+
     if (index >= trials.length) {
         console.log("Experiment complete");
         return;
     }
 
     const condition = trials[index];
+
+    // Remember which trial we're running
+    currentTrialIndex = index;
+    currentDelayMin = delayMin;
+    currentDelayMax = delayMax;
+
     showToast({
         ...condition,
         title: "Messages",
         message: "Alex sent you a message."
     });
-
-    // Random delay before next notification
-    const nextDelay = Math.floor(
-        Math.random() * (delayMax - delayMin + 1)
-    ) + delayMin;
-
-    setTimeout(() => {
-        runTrial(index + 1, delayMin, delayMax);
-    }, durations[condition.duration] + nextDelay);
-}
+} // runTrial
 
 function finishToast(response) {
     if (!currentTrial) return;
 
-    // Stop the timeout
+    // Cancel the automatic timeout
     clearTimeout(toastTimeout);
 
     // Record response
@@ -218,13 +210,48 @@ function finishToast(response) {
 
     // Calculate response time
     currentTrial.responseTime = currentTrial.responseAt - currentTrial.shownAt;
+
     console.log(currentTrial);
+
+    if (response === "open") {
+        // Expand the notification
+        toast.classList.add("expanded");
+
+        toast.querySelector(".toast-title").textContent =
+            "Alex";
+
+        toast.querySelector(".toast-body").textContent =
+            "Hey! Just wanted to let you know that the meeting has been moved to tomorrow at 2:00 PM. Let me know if that time still works for you.";
+
+        // Don't hide it yet
+        return;
+    }
 
     // Hide toast
     toast.style.display = "none";
 
+    // Save whatever you want to your database here
+
+    // Move to next trial
+    const nextIndex = currentTrialIndex + 1;
+
+    const nextDelay = Math.floor(
+        Math.random() *
+        (currentDelayMax - currentDelayMin + 1)
+    ) + currentDelayMin;
+
     // Clear current trial
     currentTrial = null;
-} // finish toast
+
+    // Wait before showing next notification
+    nextTrialTimeout = setTimeout(() => {
+        runTrial(
+            nextIndex,
+            currentDelayMin,
+            currentDelayMax
+        );
+    }, nextDelay);
+} // finishToast
+
 
 runTrial(0, 5000, 10000);
