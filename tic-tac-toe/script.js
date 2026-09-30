@@ -3,10 +3,28 @@ const boardElement = document.getElementById('board');
 const cells = document.querySelectorAll('.cell');
 const statusText = document.getElementById('status');
 const restartBtn = document.getElementById('restart-btn');
+const toast = document.getElementById("toast");
 
 // listeners
 boardElement.addEventListener('click', handleCellClick);
 restartBtn.addEventListener('click', restartGame);
+
+// experimental conditions
+const conditions = [
+    { prominence: "low",  animation: "slide", duration: "short" },
+    { prominence: "low",  animation: "slide", duration: "long" },
+    { prominence: "low",  animation: "fade",  duration: "short" },
+    { prominence: "low",  animation: "fade",  duration: "long" },
+    { prominence: "low",  animation: "pop",   duration: "short" },
+    { prominence: "low",  animation: "pop",   duration: "long" },
+
+    { prominence: "high", animation: "slide", duration: "short" },
+    { prominence: "high", animation: "slide", duration: "long" },
+    { prominence: "high", animation: "fade",  duration: "short" },
+    { prominence: "high", animation: "fade",  duration: "long" },
+    { prominence: "high", animation: "pop",   duration: "short" },
+    { prominence: "high", animation: "pop",   duration: "long" }
+];
 
 // starting state and win condition
 let boardState = ["", "", "", "", "", "", "", "", ""];
@@ -19,7 +37,7 @@ const winningConditions = [
 ];
 
 function handleCellClick(e) {
-    showToast("you clicked!")
+    setToastStyle("stun")
 
     const clickedCell = e.target;
     const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
@@ -103,18 +121,7 @@ function restartGame() {
 
 
 // toast!
-
-function showToast(message) {
-    const container = document.getElementById('toast-container');
-
-    const toast = document.createElement('div');
-    toast.classList.add('toast');
-
-    toast.textContent = message;
-
-    container.appendChild(toast);
-
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-} // showToast
+function setToastStyle(style) {
+    toast.classList.remove("blend", "stun");
+    toast.classList.add(style);
+}

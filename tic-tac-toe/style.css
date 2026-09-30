@@ -67,42 +67,107 @@ button:hover {
     background-color: #059669;
 }
 
-/* toast notification */
-#toast-container {
+
+
+/* Toast container */
+.toast {
     position: fixed;
     top: 20px;
     right: 20px;
+
+    width: min(90vw, 380px);
+    padding: 14px 18px;
+
+    border-radius: 14px;
     z-index: 1000;
 
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.toast {
-    min-width: 250px;
-    padding: 15px 20px;
-
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-
     font-family: Arial, sans-serif;
-    font-size: 16px;
 
-    animation: slideIn 0.3s ease-out;
+    /* Toast animation */
+    animation: fade 0.60s ease-out;
 }
 
-@keyframes slideIn {
+/* BLEND: Low visual prominence */
+.toast.blend {
+    background: #f4f4f4;
+    color: #555;
+
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.toast.blend .toast-title {
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 3px;
+}
+
+.toast.blend .toast-body {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+/* STUN: High visual prominence */
+.toast.stun {
+    background: #ffeb3b;
+    color: #111;
+
+    border: 3px solid #111;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.toast.stun .toast-title {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.toast.stun .toast-body {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* Animation */
+@keyframes slide {
     from {
-        transform: translateX(100%);
         opacity: 0;
+        transform: translate(200px);
     }
 
     to {
-        transform: translateX(0);
         opacity: 1;
+        transform: translate(0px);
+    }
+}
+
+/* Fade */
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Pulse */
+@keyframes pulse {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
     }
 }
