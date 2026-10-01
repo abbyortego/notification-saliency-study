@@ -1,19 +1,23 @@
 /* CONSENT & BRIEFING */
 .consent-page {
-    min-height: 100vh;
+    width: 100%;
+    min-height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .consent-card {
     width: min(90vw, 600px);
     padding: 32px;
+    margin: 20px 0;
     background: white;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
 }
 
 .consent-card h1 {
@@ -132,13 +136,18 @@
 
 /* STUDY UI */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    overflow-x: hidden;
+}
+
+#game-page {
+    width: 100%;
+    min-height: 100dvh;
+    padding: 100px 10px 20px;
+    box-sizing: border-box;
 }
 
 .game-container {
@@ -146,7 +155,6 @@ body {
     max-width: 400px;
     margin: 0 auto;
     text-align: center;
-    margin-top: 50%;
 }
 
 h1 {
