@@ -145,9 +145,11 @@ body {
 
 #game-page {
     width: 100%;
-    min-height: 100dvh;
-    padding: 180px 10px 20px;
+    height: 100dvh;
+    overflow: hidden;
     box-sizing: border-box;
+
+    padding: 180px 10px 20px;
 }
 
 .game-container {
