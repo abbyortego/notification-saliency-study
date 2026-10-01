@@ -51,6 +51,7 @@ startButton.addEventListener("click", async () => {
         // Link works, so start the study
         consentPage.style.display = "none";
         gamePage.style.display = "block";
+        window.scrollTo(0, 0);
         setTimeout(() => {
             runTrial(0, 5000, 10000);
         }, 15000);
