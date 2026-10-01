@@ -373,3 +373,43 @@ button:hover {
     font-size: 16px;
     line-height: 1.5;
 }
+
+
+
+/* Post Survey */
+.notification-recall-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.recall-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #f8f8f8;
+    cursor: pointer;
+}
+
+.recall-item input {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.recall-content {
+    flex: 1;
+}
+
+.recall-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.recall-message {
+    font-size: 14px;
+    line-height: 1.4;
+}

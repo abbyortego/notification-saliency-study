@@ -61,6 +61,49 @@ startButton.addEventListener("click", async () => {
     }
 });
 
+// log post-survey data
+document.getElementById("submit-survey").addEventListener("click", async () => {
+    const rememberedNotifications = Array.from(
+        document.querySelectorAll(
+            'input[name="remembered-notifications"]:checked'
+        )
+    ).map(input => {
+        const notification = JSON.parse(input.value);
+
+        return {
+            title: notification.title,
+            message: notification.message
+        };
+    });
+
+    const surveyData = {
+        participantId: participantId,
+        response: "post-survey",
+        message: JSON.stringify(rememberedNotifications)
+    };
+
+    try {
+        const response = await fetch(GOOGLE_SHEET_URL, {
+            method: "POST",
+            body: JSON.stringify(surveyData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        // Hide survey
+        document.getElementById("post-survey").style.display = "none";
+
+        // Show debrief
+        document.getElementById("debrief-page").style.display = "block";
+
+    } catch (error) {
+        console.error(error);
+        alert("There was a problem submitting your responses. Please try again.");
+    }
+});
+
 
 // TIC TAC TOE
 // experimental conditions
@@ -292,7 +335,7 @@ function showToast({
     toast.classList.add(animation);
 
     toast.querySelector(".toast-title").textContent = title;
-    toast.querySelector(".toast-body").textContent = "";
+    toast.querySelector(".toast-body").textContent = message.substring(0, 15) + "...";
 
     toast.style.display = "block";
 
@@ -318,11 +361,13 @@ function showToast({
 
 function runTrial(index, delayMin, delayMax) {
 
-    if (index >= trials.length) {
+    if (index >= trials.length-4) {     // only show first 8 so post-survey means something
         console.log("Experiment complete");
 
         gamePage.style.display = "none";
-        document.getElementById("debrief-page").style.display = "block";
+        document.getElementById("post-survey").style.display = "block";
+
+        buildRecallSurvey();
 
         return;
     }
@@ -400,3 +445,43 @@ function finishToast(response) {
         );
     }, nextDelay);
 } // finishToast
+
+function buildRecallSurvey() {
+    const container = document.getElementById("notification-recall-list");
+    const notifications = generateNotification()
+        .map((notification, index) => ({
+            ...notification,
+            notificationIndex: index
+        }))
+        .sort(() => Math.random() - 0.5);
+
+    container.innerHTML = "";
+    notifications.forEach(notification => {
+        const item = document.createElement("label");
+        const value = JSON.stringify({
+            title: notification.title,
+            message: notification.message
+        });
+        item.className = "recall-item";
+
+        item.innerHTML = `
+            <input
+                type="checkbox"
+                name="remembered-notifications"
+                value='${value}'
+            >
+
+            <div class="recall-content">
+                <div class="recall-title">
+                    ${notification.title}
+                </div>
+
+                <div class="recall-message">
+                    ${notification.message}
+                </div>
+            </div>
+        `;
+
+        container.appendChild(item);
+    });
+} // buildRecallSurvey
