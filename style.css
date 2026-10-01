@@ -1,9 +1,10 @@
 /* CONSENT & BRIEFING */
 .consent-page {
     min-height: 100vh;
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -106,12 +107,6 @@
     border: 2px solid red;
 }
 
-.study-info {
-    width: 100%;
-    max-width: 500px;
-    margin: 20px 0;
-}
-
 .info-row {
     display: flex;
     align-items: center;
@@ -142,13 +137,17 @@ body {
     background-color: #f0f2f5;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    min-height: 100vh;
     margin: 0;
 }
 
 .game-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
     text-align: center;
+    margin-top: 50%;
 }
 
 h1 {
@@ -168,7 +167,8 @@ h1 {
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
     gap: 5px;
-    margin-bottom: 20px;
+    width: max-content;
+    margin: 0 auto 20px;
 }
 
 .cell {

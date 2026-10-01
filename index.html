@@ -9,55 +9,81 @@
 <body>
     <div id="consent-page" class="consent-page">
         <div class="consent-card">
-            <h1>Tic-Tac-Toe Study</h1>
-
-            <h2>Welcome!</h2>
-
-            <p>
-                You are invited to participate in a short study about
-                how people notice and interact with notifications while
-                completing a task.
+            <h1> Welcome! </h1>
+            <p> 
+                Thank you for your interest in participating in this research study. 
+                Before beginning, please read the information below.
             </p>
 
+            <h2> About the Study </h2>
             <p>
-                During the study, you will play Tic-Tac-Toe while
-                notifications appear on the screen. When a notification
-                appears, interact with it as you normally would.
+                This study examines how people interact with information presented through 
+                digital interfaces while completing a task. You were invited because you meet 
+                the study's eligibility requirements; no specialized knowledge or prior 
+                experience is required. Participation is voluntary, and you may stop at any 
+                time without penalty.
             </p>
 
-            <h2>What to Expect</h2>
-
+           <h2> What to Expect </h2>
             <ul>
-                <li>The study takes approximately 5–10 minutes.</li>
-                <li>You will play several rounds of Tic-Tac-Toe.</li>
-                <li>Notifications will appear while you play.</li>
-                <li>Your interactions with the notifications will be recorded.</li>
+                <li>You will play multiple games of Tic-Tac-Toe in a web browser on a mobile device.</li>
+                <li>Different elements and information may appear within the interface while you play.</li>
+                <li>Interact with the game and anything that appears on the screen as you normally would. There are no right or wrong ways to interact.</li>
+                <li>Your interactions with the interface will be recorded for research purposes.</li>
+                <li>After the games, you will complete a short post-study survey.</li>
+                <li>Participation will take approximately 20–25 minutes.</li>
             </ul>
 
-            <div class="study-info">
-                <div class="info-row">
-                    <label for="study-id">Study ID</label>
-                    <input
-                        type="text"
-                        id="study-id"
-                        placeholder="Enter study ID"
-                    >
-                </div>
+            <h2> Potential Risks & Benefits </h2>
+            <p>
+                This study has minimal risks. You may experience minor frustration or inconvenience 
+                while completing the task. You can stop participating at any time without penalty. 
+                You should not expect any direct benefit, but your participation may help us better 
+                understand how people interact with digital interfaces.
+            </p>
 
-                <div class="info-row">
-                    <label>Participant ID</label>
-                    <div id="participant-id" class="id-display"></div>
-                </div>
+            <h2> Confidentiality </h2>
+            <p> 
+                We will not ask for your name or other directly identifying information. Your responses 
+                will be associated with a randomly generated participant ID and stored as coded research 
+                data. Access will be limited to the research team and authorized individuals. Results may 
+                be reported in aggregate, without identifying individual participants. While we will take 
+                reasonable steps to protect your information, confidentiality cannot be guaranteed.                
+            </p>
+            <p> <strong>Please save or write down your participant ID for your records.</strong> </p>
+            <div class="info-row">
+                <label>Participant ID</label>
+                <div id="participant-id" class="id-display"></div>
             </div>
 
+            <p>
+                If you have questions about the research study or your participation, please contact:
+                <ul>
+                    <li>Investigator: Abby Ortego</li>
+                    <li>Email: aortego1@tulane.edu</li>
+                </ul>
+            </p>
+            
+            <h2> To proceed to the study... </h2>
+            <p> Provide the Study ID: </p>
+            <div class="info-row">
+                <input
+                    type="text"
+                    id="study-id"
+                    placeholder="Enter study ID"
+                >
+            </div>
+
+            <p> Provide your Consent to Participate: </p>
             <div class="consent-box">
                 <label>
                     <input type="checkbox" id="consent-checkbox">
-                    I have read the information above and voluntarily
-                    agree to participate in this study.
+                    I have read and understood the information above, have had the opportunity 
+                    to ask questions, and voluntarily agree to participate in this research study.
                 </label>
             </div>
 
+            <p> <strong>Please interact with the interface naturally and enjoy the game!</strong> </p>
             <button id="start-btn" disabled>
                 Start Study
             </button>
