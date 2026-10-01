@@ -1,10 +1,9 @@
 /* CONSENT & BRIEFING */
 .consent-page {
     min-height: 100vh;
-    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     padding: 20px;
     box-sizing: border-box;
 }
@@ -107,6 +106,12 @@
     border: 2px solid red;
 }
 
+.study-info {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px 0;
+}
+
 .info-row {
     display: flex;
     align-items: center;
@@ -132,37 +137,18 @@
 
 
 /* STUDY UI */
-html,
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f2f5;
-    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    overflow-x: hidden;
-}
-
-#game-page {
-    width: 100%;
-    min-height: 100dvh;
-    box-sizing: border-box;
-    padding: 100px 10px 20px;
 }
 
 .game-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
     text-align: center;
-    box-sizing: border-box;
-}
-
-.board {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 5px;
-    width: max-content;
-    margin: 0 auto 20px;
 }
 
 h1 {
@@ -175,6 +161,14 @@ h1 {
     margin-bottom: 20px;
     font-weight: bold;
     color: #555;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    margin-bottom: 20px;
 }
 
 .cell {
