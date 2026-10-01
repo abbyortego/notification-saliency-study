@@ -458,29 +458,32 @@ function buildRecallSurvey() {
     container.innerHTML = "";
     notifications.forEach(notification => {
         const item = document.createElement("label");
-        const value = JSON.stringify({
+        item.className = "recall-item";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "remembered-notifications";
+        checkbox.value = JSON.stringify({
             title: notification.title,
             message: notification.message
         });
-        item.className = "recall-item";
 
-        item.innerHTML = `
-            <input
-                type="checkbox"
-                name="remembered-notifications"
-                value='${value}'
-            >
+        const content = document.createElement("div");
+        content.className = "recall-content";
 
-            <div class="recall-content">
-                <div class="recall-title">
-                    ${notification.title}
-                </div>
+        const title = document.createElement("div");
+        title.className = "recall-title";
+        title.textContent = notification.title;
 
-                <div class="recall-message">
-                    ${notification.message}
-                </div>
-            </div>
-        `;
+        const message = document.createElement("div");
+        message.className = "recall-message";
+        message.textContent = notification.message;
+
+        content.appendChild(title);
+        content.appendChild(message);
+
+        item.appendChild(checkbox);
+        item.appendChild(content);
 
         container.appendChild(item);
     });
